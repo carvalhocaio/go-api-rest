@@ -1,17 +1,17 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/carvalhocaio/go-api-rest/models"
 	"github.com/gin-gonic/gin"
 )
 
-var pizzas = []models.Pizza{
-	{ID: 1, Nome: "toscana", Preco: 23.5},
-	{ID: 2, Nome: "marguerita", Preco: 27.3},
-}
+var pizzas []models.Pizza
 
 func getPizzas(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"pizzas": pizzas})
@@ -23,7 +23,11 @@ func postPizzas(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"erro": err.Error()})
 		return
 	}
+
+	newPizza.ID = len(pizzas) + 1
 	pizzas = append(pizzas, newPizza)
+	savePizza()
+	c.JSON(http.StatusCreated, newPizza)
 }
 
 func getPizzasByID(c *gin.Context) {
@@ -44,7 +48,37 @@ func getPizzasByID(c *gin.Context) {
 	c.JSON(http.StatusNotFound, gin.H{"message": "Pizza not found"})
 }
 
+func loadPizzas() {
+	file, err := os.Open("dados/pizzas.json")
+	if err != nil {
+		fmt.Println("Error file:", err)
+		return
+	}
+
+	defer file.Close()
+	decoder := json.NewDecoder(file)
+	if err := decoder.Decode(&pizzas); err != nil {
+		fmt.Println("Error decoding JSON: ", err)
+	}
+}
+
+func savePizza() {
+	file, err := os.Create("dados/pizzas.json")
+	if err != nil {
+		fmt.Println("Error file:", err)
+		return
+	}
+
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	if err := encoder.Encode(pizzas); err != nil {
+		fmt.Println("Error encoding JSON:", err)
+	}
+}
+
 func main() {
+	loadPizzas()
 	r := gin.Default()
 	r.GET("/pizzas", getPizzas)
 	r.POST("/pizzas", postPizzas)
