@@ -1,0 +1,16 @@
+GET http://localhost:8080/pizzas
+
+### 
+GET http://localhost:8080/pizzas/1
+
+###
+DELETE http://localhost:8080/pizzas/2
+
+###
+PUT http://localhost:8080/pizzas/1
+Content-Type: "application/json"
+
+{
+    "nome": "toscana sem cebola",
+    "preco": 32.5
+}
