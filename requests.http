@@ -14,3 +14,12 @@ Content-Type: "application/json"
     "nome": "toscana sem cebola",
     "preco": 32.5
 }
+
+### 
+POST http://localhost:8080/pizzas
+Content-Type: "application/json"
+
+{
+    "nome": "frango com queijo",
+    "preco": 35.5
+}
