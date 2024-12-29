@@ -6,6 +6,7 @@ import (
 
 	"github.com/carvalhocaio/go-api-rest/internal/data"
 	"github.com/carvalhocaio/go-api-rest/internal/models"
+	"github.com/carvalhocaio/go-api-rest/internal/service"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +17,11 @@ func GetPizzas(c *gin.Context) {
 func PostPizzas(c *gin.Context) {
 	var newPizza models.Pizza
 	if err := c.ShouldBindJSON(&newPizza); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"erro": err.Error()})
+		return
+	}
+
+	if err := service.ValidatePizzaPrice(&newPizza); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"erro": err.Error()})
 		return
 	}
@@ -74,6 +80,11 @@ func UpdatePizzaById(c *gin.Context) {
 
 	var updatedPizza models.Pizza
 	if err := c.ShouldBindJSON(&updatedPizza); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"erro": err.Error()})
+		return
+	}
+
+	if err := service.ValidatePizzaPrice(&updatedPizza); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"erro": err.Error()})
 		return
 	}

@@ -23,3 +23,21 @@ Content-Type: "application/json"
     "nome": "frango com queijo",
     "preco": 35.5
 }
+
+### 
+POST http://localhost:8080/pizzas
+Content-Type: "application/json"
+
+{
+    "nome": "frango com catupiry",
+    "preco": -10.9
+}
+
+### 
+PUT  http://localhost:8080/pizzas/2
+Content-Type: "application/json"
+
+{
+    "nome": "frango com catupiry",
+    "preco": -10.9
+}
