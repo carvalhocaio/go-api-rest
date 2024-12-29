@@ -1,1 +1,1 @@
-[{"id":1,"nome":"toscana sem cebola","preco":32.5},{"id":2,"nome":"frango com queijo","preco":35.5}]
+[{"id":1,"nome":"toscana sem cebola","preco":32.5,"reviews":[{"rating":5,"comment":"Wow"}]},{"id":2,"nome":"frango com queijo","preco":35.5,"reviews":null}]

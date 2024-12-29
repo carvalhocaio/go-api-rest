@@ -41,3 +41,12 @@ Content-Type: "application/json"
     "nome": "frango com catupiry",
     "preco": -10.9
 }
+
+###
+POST http://localhost:8080/pizzas/1/reviews
+Content-Type: "application/json"
+
+{
+    "rating": 10,
+    "comment": "Wow"
+}

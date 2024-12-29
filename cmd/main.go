@@ -15,6 +15,7 @@ func main() {
 	r.GET("/pizzas/:id", handler.GetPizzasByID)
 	r.DELETE("/pizzas/:id", handler.DeletePizzaById)
 	r.PUT("/pizzas/:id", handler.UpdatePizzaById)
+	r.POST("/pizzas/:id/reviews", handler.PostReview)
 
 	r.Run()
 }
